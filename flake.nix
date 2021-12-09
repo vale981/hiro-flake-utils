@@ -53,7 +53,7 @@
               poetry2nix.overlay
 
               (final: prev:
-                let overrides = [
+                let overrides = nixpkgs.lib.composeManyExtensions [
                   (prev.poetry2nix.overrides.withDefaults
                     (makeDefaultPackageOverrides pythonInputs system))
                 ] ++ (makeAddCythonOverrides addCythonTo);
