@@ -25,12 +25,10 @@
 
       makeAddCythonOverrides =
         (flakes:
-          (self: super:
-            (builtins.listToAttrs (builtins.map
-              (name:
-                {
-                  name = name;
-                  value = super.${name}.overridePythonAttrs (
+        (builtins.map
+          (name:
+            (self: super: {
+              ${name} = super.${name}.overridePythonAttrs (
                     old: {
                       buildInputs = (old.buildInputs or [ ]) ++ [
                         self.cython
@@ -38,8 +36,8 @@
                     }
                   );
                 })
-              flakes))
-          ));
+              flakes)
+        ));
 
       poetry2nixWrapper = nixpkgs: pythonInputs:
         { name
@@ -57,8 +55,7 @@
                 let overrides = nixpkgs.lib.composeManyExtensions [
                       (prev.poetry2nix.overrides.withDefaults
                         (makeDefaultPackageOverrides pythonInputs system))
-                      (makeAddCythonOverrides addCythonTo)
-                    ];
+                    ] ++ (makeAddCythonOverrides addCythonTo);
                 in
                 {
                   ${name} = (prev.poetry2nix.mkPoetryApplication ({
