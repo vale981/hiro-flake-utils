@@ -23,7 +23,7 @@
             body
           ));
 
-      poetry2nixWrapper = nixpkgs: pythonInputs:
+      poetry2nixWrapper = nixpkgs:
         { name
         , poetryArgs ? { }
         , buildInputs ? _: [ ]
