@@ -56,7 +56,7 @@
                       }
                     );
 
-                    jupyter-core = super.jupyter-core.overridePythonAttrs (
+                    jupyter = super.jupyter-core.overridePythonAttrs (
                       old: {
                         postInstall = ''
                              rm $out/lib/python*/site-packages/__pycache__/jupyter.cpython-39.pyc
