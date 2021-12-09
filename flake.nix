@@ -64,6 +64,12 @@
                         '';
                       }
                     );
+
+                    numpy = super.numpy.overridePythonAttrs (
+                      old: {
+                        passthru.args.blas = super.pkgs.mkl;
+                      }
+                    );
                   });
                 in
                 {
