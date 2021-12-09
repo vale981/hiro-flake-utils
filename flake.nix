@@ -37,7 +37,7 @@
                   ${name} = (prev.poetry2nix.mkPoetryApplication {
                     preferWheels = true;
                     overrides = overrides;
-                  }) // poetryArgs;
+                  } // poetryArgs);
 
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv {
                     overrides = overrides;
@@ -45,7 +45,7 @@
                     editablePackageSources = {
                       ${name} = ./${name};
                     };
-                  }) // poetryArgs;
+                  } // poetryArgs);
                 })
 
             ];
