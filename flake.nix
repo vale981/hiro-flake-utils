@@ -34,18 +34,18 @@
                   (makeDefaultPackageOverrides pythonInputs system);
                 in
                 {
-                  ${name} = (prev.poetry2nix.mkPoetryApplication {
+                  ${name} = (prev.poetry2nix.mkPoetryApplication ({
                     preferWheels = true;
                     overrides = overrides;
-                  } // poetryArgs);
+                  } // poetryArgs));
 
-                  "${name}Shell" = (prev.poetry2nix.mkPoetryEnv {
+                  "${name}Shell" = (prev.poetry2nix.mkPoetryEnv ({
                     overrides = overrides;
                     preferWheels = true;
                     # editablePackageSources = {
                     #   ${name} = ./${name};
                     # };
-                  } // poetryArgs);
+                  } // poetryArgs));
                 })
 
             ];
