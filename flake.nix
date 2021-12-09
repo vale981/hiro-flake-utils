@@ -46,7 +46,7 @@
         , poetryArgs ? { }
         , buildInputs ? _: [ ]
         , nixpkgsConfig ? { }
-        , addCythonTo ? { }
+        , addCythonTo ? [ ]
         }:
         (flake-utils.lib.eachDefaultSystem (system:
           let
