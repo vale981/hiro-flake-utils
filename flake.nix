@@ -42,9 +42,9 @@
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv {
                     overrides = overrides;
                     preferWheels = true;
-                    editablePackageSources = {
-                      ${name} = ./${name};
-                    };
+                    # editablePackageSources = {
+                    #   ${name} = ./${name};
+                    # };
                   } // poetryArgs);
                 })
 
