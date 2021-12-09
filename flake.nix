@@ -59,8 +59,8 @@
                     jupyter = super.jupyter-core.overridePythonAttrs (
                       old: {
                         postInstall = ''
-                             rm $out/lib/python*/site-packages/__pycache__/jupyter.cpython-39.pyc
-                             rm $out/lib/python*/site-packages/jupyter.py
+                          rm $out/lib/python*/site-packages/__pycache__/jupyter.cpython-39.pyc
+                          rm $out/lib/python*/site-packages/jupyter.py
                         '';
                       }
                     );
@@ -83,7 +83,17 @@
             ];
             pkgs = import nixpkgs {
               inherit system;
-              overlays = [ overlay ];
+              overlays = [
+                (self: super: {
+                  lapack = super.lapack.override {
+                    lapackProvider = super.mkl;
+                  };
+                  blas = super.blas.override {
+                    blasProvider = super.mkl;
+                  };
+                })
+                overlay
+              ];
               config = nixpkgsConfig;
             };
           in
