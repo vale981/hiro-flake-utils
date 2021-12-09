@@ -8,7 +8,7 @@
           body = (builtins.listToAttrs (builtins.map
           (name: {
             name = name;
-            value = (currentDefaultPackage inputs.${name} system);
+            value = (currentDefaultPackage flake system);
           })
           flakes));
         in (self: super:
