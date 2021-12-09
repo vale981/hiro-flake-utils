@@ -84,14 +84,6 @@
             pkgs = import nixpkgs {
               inherit system;
               overlays = [
-                (self: super: {
-                  lapack = super.lapack.override {
-                    lapackProvider = super.mkl;
-                  };
-                  blas = super.blas.override {
-                    blasProvider = super.mkl;
-                  };
-                })
                 overlay
               ];
               config = nixpkgsConfig;
