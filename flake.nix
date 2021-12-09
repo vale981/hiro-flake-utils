@@ -25,19 +25,20 @@
 
       makeAddCythonOverrides =
         (flakes:
-        (builtins.map
-          (name:
-            (self: super: {
-              ${name} = super.${name}.overridePythonAttrs (
-                    old: {
-                      buildInputs = (old.buildInputs or [ ]) ++ [
-                        self.cython
-                      ];
-                    }
-                  );
-                })
-              flakes)
-        ));
+          (builtins.map
+            (name:
+              (self: super: {
+                ${name} = super.${name}.overridePythonAttrs (
+                  old: {
+                    buildInputs = (old.buildInputs or [ ]) ++ [
+                      self.cython
+                    ];
+                  }
+                );
+              })
+            )
+            flakes
+          ));
 
       poetry2nixWrapper = nixpkgs: pythonInputs:
         { name
@@ -53,9 +54,9 @@
 
               (final: prev:
                 let overrides = [
-                      (prev.poetry2nix.overrides.withDefaults
-                        (makeDefaultPackageOverrides pythonInputs system))
-                    ] ++ (makeAddCythonOverrides addCythonTo);
+                  (prev.poetry2nix.overrides.withDefaults
+                    (makeDefaultPackageOverrides pythonInputs system))
+                ] ++ (makeAddCythonOverrides addCythonTo);
                 in
                 {
                   ${name} = (prev.poetry2nix.mkPoetryApplication ({
@@ -66,7 +67,7 @@
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv ({
                     overrides = overrides;
                     preferWheels = true;
-                    editablePackageSources =  {
+                    editablePackageSources = {
                       ${name} = poetryArgs.projectDir + "/${name}";
                     };
                   } // poetryArgs));
