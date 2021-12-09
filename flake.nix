@@ -62,7 +62,7 @@
 
             defaultPackage = packages.${name};
             devShell = pkgs."${name}Shell".env.overrideAttrs (oldAttrs: {
-              buildInputs = (buildInputs.pkgs);
+              buildInputs = (buildInputs pkgs);
             });
           }));
     };
