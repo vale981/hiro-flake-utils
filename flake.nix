@@ -26,7 +26,7 @@
       makeAddCythonOverrides =
         (flakes:
           (self: super:
-            (builtins.listToAttrs builtins.map
+            (builtins.listToAttrs (builtins.map
               (name:
                 {
                   name = name;
@@ -38,7 +38,7 @@
                     }
                   );
                 })
-              flakes)
+              flakes))
           ));
 
       poetry2nixWrapper = nixpkgs: pythonInputs:
