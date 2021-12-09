@@ -5,8 +5,8 @@
       makeDefaultPackageOverrides =
         flakes: inputs: system:
         let
-          body = (builtins.listToAttrs (builtins.mapAttrs
-          (name: _: {
+          body = (builtins.listToAttrs (builtins.map
+          (name: {
             name = name;
             value = (currentDefaultPackage inputs.${name} system);
           })
