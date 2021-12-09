@@ -53,10 +53,16 @@
               poetry2nix.overlay
 
               (final: prev:
-                let overrides = (nixpkgs.lib.composeManyExtensions [
-                  (prev.poetry2nix.overrides.withDefaults
-                    (makeDefaultPackageOverrides pythonInputs system))
-                    ] ++ (makeAddCythonOverrides addCythonTo));
+                let overrides =
+                      (self: super: {
+                        "fcspline" = super.fcspline.overridePythonAttrs (
+                          old: {
+                            buildInputs = (old.buildInputs or [ ]) ++ [
+                              self.cython
+                            ];
+                          }
+                        );
+                      });
                 in
                 {
                   ${name} = (prev.poetry2nix.mkPoetryApplication ({
