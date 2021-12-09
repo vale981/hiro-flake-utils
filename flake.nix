@@ -35,19 +35,17 @@
                 in
                 {
                   ${name} = (prev.poetry2nix.mkPoetryApplication {
-                    projectDir = ./.;
                     preferWheels = true;
                     overrides = overrides;
-                  });
+                  }) // poetryArgs;
 
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv {
-                    projectDir = ./.;
                     overrides = overrides;
                     preferWheels = true;
                     editablePackageSources = {
                       ${name} = ./${name};
                     };
-                  });
+                  }) // poetryArgs;
                 })
 
             ];
