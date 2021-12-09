@@ -23,7 +23,12 @@
             body
           ));
 
-      poetry2nixWrapper = nixpkgs: pythonInputs: { name, poetryArgs ? {}, buildInputs ? _: [], nixpkgsConfig ? {} }:
+      poetry2nixWrapper = nixpkgs: pythonInputs:
+        { name
+        , poetryArgs ? { }
+        , buildInputs ? _: [ ]
+        , nixpkgsConfig ? { }
+        }:
         (flake-utils.lib.eachDefaultSystem (system:
           let
             overlay = nixpkgs.lib.composeManyExtensions [
@@ -42,9 +47,9 @@
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv ({
                     overrides = overrides;
                     preferWheels = true;
-                    # editablePackageSources = {
-                    #   ${name} = ./${name};
-                    # };
+                    editablePackageSources =  {
+                      ${name} = poetryArgs.projectDir + "/${name}";
+                    };
                   } // poetryArgs));
                 })
 
@@ -62,7 +67,7 @@
 
             defaultPackage = packages.${name};
             devShell = pkgs."${name}Shell".env.overrideAttrs (oldAttrs: {
-              buildInputs = (buildInputs pkgs);
+              buildInputs = (buildInputs pkgs) ++ [ pkgs.poetry ];
             });
           }));
     };
