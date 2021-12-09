@@ -23,23 +23,6 @@
             body
           ));
 
-      makeAddCythonOverrides =
-        (flakes:
-          (builtins.map
-            (name:
-              (self: super: {
-                ${name} = super.${name}.overridePythonAttrs (
-                  old: {
-                    buildInputs = (old.buildInputs or [ ]) ++ [
-                      self.cython
-                    ];
-                  }
-                );
-              })
-            )
-            flakes
-          ));
-
       poetry2nixWrapper = nixpkgs: pythonInputs:
         { name
         , poetryArgs ? { }
@@ -53,9 +36,17 @@
               poetry2nix.overlay
 
               (final: prev:
-                let overrides =
+                let overrides = # custom overrides for packages that require cython
                       (self: super: {
-                        "fcspline" = super.fcspline.overridePythonAttrs (
+                        fcspline = super.fcspline.overridePythonAttrs (
+                          old: {
+                            buildInputs = (old.buildInputs or [ ]) ++ [
+                              self.cython
+                            ];
+                          }
+                        );
+
+                        stocproc = super.stocproc.overridePythonAttrs (
                           old: {
                             buildInputs = (old.buildInputs or [ ]) ++ [
                               self.cython
