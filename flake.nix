@@ -55,6 +55,15 @@
                         ];
                       }
                     );
+
+                    jupyter-core = super.jupyter-core.overridePythonAttrs (
+                      old: {
+                        postInstall = old.postInstall + ''
+                             rm $out/lib/python*/site-packages/__pycache__/jupyter.cpython-39.pyc
+                             rm $out/lib/python*/site-packages/jupyter.py
+                        '';
+                      }
+                    );
                   });
                 in
                 {
