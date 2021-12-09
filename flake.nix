@@ -29,6 +29,7 @@
         , shellPackages ? (_: [ ])
         , nixpkgsConfig ? { }
         , addCythonTo ? [ ]
+        , noPackage ? false
         }:
         (flake-utils.lib.eachDefaultSystem (system:
           let
@@ -37,30 +38,25 @@
 
               (final: prev:
                 let overrides = # custom overrides for packages that require cython
-                      (self: super: {
-                        fcspline = super.fcspline.overridePythonAttrs (
-                          old: {
-                            buildInputs = (old.buildInputs or [ ]) ++ [
-                              self.cython
-                            ];
-                          }
-                        );
+                  (self: super: {
+                    fcspline = super.fcspline.overridePythonAttrs (
+                      old: {
+                        buildInputs = (old.buildInputs or [ ]) ++ [
+                          self.cython
+                        ];
+                      }
+                    );
 
-                        stocproc = super.stocproc.overridePythonAttrs (
-                          old: {
-                            buildInputs = (old.buildInputs or [ ]) ++ [
-                              self.cython
-                            ];
-                          }
-                        );
-                      });
+                    stocproc = super.stocproc.overridePythonAttrs (
+                      old: {
+                        buildInputs = (old.buildInputs or [ ]) ++ [
+                          self.cython
+                        ];
+                      }
+                    );
+                  });
                 in
                 {
-                  ${name} = (prev.poetry2nix.mkPoetryApplication ({
-                    preferWheels = true;
-                    overrides = overrides;
-                  } // poetryArgs));
-
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv ({
                     overrides = overrides;
                     preferWheels = true;
@@ -68,8 +64,12 @@
                       ${name} = poetryArgs.projectDir + "/${name}";
                     };
                   } // poetryArgs));
-                })
-
+                } // (if noPackage then { } else {
+                  ${name} = (prev.poetry2nix.mkPoetryApplication ({
+                    preferWheels = true;
+                    overrides = overrides;
+                  } // poetryArgs));
+                }))
             ];
             pkgs = import nixpkgs {
               inherit system;
@@ -78,15 +78,17 @@
             };
           in
           rec {
+            devShell = pkgs."${name}Shell".env.overrideAttrs (oldAttrs: {
+              buildInputs = (shellPackages pkgs) ++ [ pkgs.poetry ];
+            });
+          } // (if noPackage then { } else rec {
             packages = {
               ${name} = pkgs.${name};
             };
 
             defaultPackage = packages.${name};
-            devShell = pkgs."${name}Shell".env.overrideAttrs (oldAttrs: {
-              buildInputs = (shellPackages pkgs) ++ [ pkgs.poetry ];
-            });
-          }));
+          })
+        ));
     };
   };
 }
