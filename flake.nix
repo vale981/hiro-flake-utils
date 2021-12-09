@@ -26,7 +26,7 @@
       poetry2nixWrapper = nixpkgs:
         { name
         , poetryArgs ? { }
-        , buildInputs ? _: [ ]
+        , shellPackages ? (_: [ ])
         , nixpkgsConfig ? { }
         , addCythonTo ? [ ]
         }:
@@ -84,7 +84,7 @@
 
             defaultPackage = packages.${name};
             devShell = pkgs."${name}Shell".env.overrideAttrs (oldAttrs: {
-              buildInputs = (buildInputs pkgs) ++ [ pkgs.poetry ];
+              buildInputs = (shellPackages pkgs) ++ [ pkgs.poetry ];
             });
           }));
     };
