@@ -23,7 +23,7 @@
             body
           ));
 
-      poetry2nixWrapper = pythonInputs: { name, poetryArgs ? {}, buildInputs ? _: [] }:
+      poetry2nixWrapper = nixpkgs: pythonInputs: { name, poetryArgs ? {}, buildInputs ? _: [], nixpkgsConfig ? {} }:
         (flake-utils.lib.eachDefaultSystem (system:
           let
             overlay = nixpkgs.lib.composeManyExtensions [
@@ -52,7 +52,7 @@
             pkgs = import nixpkgs {
               inherit system;
               overlays = [ overlay ];
-              config.allowUnfree = true;
+              config = nixpkgsConfig;
             };
           in
           rec {
