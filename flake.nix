@@ -30,6 +30,7 @@
         , nixpkgsConfig ? { }
         , addCythonTo ? [ ]
         , noPackage ? false
+        , shellOverride ? (_: { })
         }:
         (flake-utils.lib.eachDefaultSystem (system:
           let
@@ -78,9 +79,9 @@
             };
           in
           rec {
-            devShell = pkgs."${name}Shell".env.overrideAttrs (oldAttrs: {
+            devShell = (pkgs."${name}Shell".env.overrideAttrs (oldAttrs: {
               buildInputs = (shellPackages pkgs) ++ [ pkgs.poetry ];
-            });
+            })).overrideAttrs shellOverride;
           } // (if noPackage then { } else rec {
             packages = {
               ${name} = pkgs.${name};
