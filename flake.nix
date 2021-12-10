@@ -23,23 +23,7 @@
             body
           ));
 
-      poetry2nixWrapper = nixpkgs:
-        { name
-        , poetryArgs ? { }
-        , shellPackages ? (_: [ ])
-        , nixpkgsConfig ? { }
-        , addCythonTo ? [ ]
-        , noPackage ? false
-        , shellOverride ? (_: { })
-        }:
-        (flake-utils.lib.eachDefaultSystem (system:
-          let
-            overlay = nixpkgs.lib.composeManyExtensions [
-              poetry2nix.overlay
-
-              (final: prev:
-                let overrides = # custom overrides for packages that require cython
-                  (self: super: {
+      overrides = (self: super: {
                     fcspline = super.fcspline.overridePythonAttrs (
                       old: {
                         buildInputs = (old.buildInputs or [ ]) ++ [
@@ -65,7 +49,22 @@
                       }
                     );
                   });
-                in
+
+      poetry2nixWrapper = nixpkgs:
+        { name
+        , poetryArgs ? { }
+        , shellPackages ? (_: [ ])
+        , nixpkgsConfig ? { }
+        , addCythonTo ? [ ]
+        , noPackage ? false
+        , shellOverride ? (_: { })
+        }:
+        (flake-utils.lib.eachDefaultSystem (system:
+          let
+            overlay = nixpkgs.lib.composeManyExtensions [
+              poetry2nix.overlay
+
+              (final: prev:
                 {
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv ({
                     overrides = overrides;
