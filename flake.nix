@@ -48,6 +48,12 @@
                         '';
                       }
                     );
+
+                    matplotlib = super.matplotlib.overridePythonAttrs (
+                      old: {
+                        passthru.enableTk = true;
+                      }
+                    );
                   });
 
       poetry2nixWrapper = nixpkgs:
