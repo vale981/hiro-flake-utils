@@ -54,6 +54,12 @@
                         enableGtk = true;
                       }
                     );
+
+                    numpy = super.numpy.override (
+                      {
+                        blas = super.mkl;
+                      }
+                    );
                   });
 
       poetry2nixWrapper = nixpkgs:
