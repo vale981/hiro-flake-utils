@@ -53,6 +53,7 @@
                       {
                         enableGtk3 = true;
                         enableTk = true;
+                        preferWheel = false;
                       }
                     );
 
