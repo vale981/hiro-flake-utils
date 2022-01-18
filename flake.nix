@@ -52,7 +52,6 @@
                     matplotlib = super.matplotlib.override (
                       {
                         enableGtk3 = true;
-                        enableTk = true;
                         preferWheel = false;
                       }
                     );
