@@ -49,9 +49,9 @@
                       }
                     );
 
-                    matplotlib = super.matplotlib.overridePythonAttrs (
-                      old: {
-                        passthru.enableTk = true;
+                    matplotlib = super.matplotlib.override (
+                      {
+                        enableGtk = true;
                       }
                     );
                   });
