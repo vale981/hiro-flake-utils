@@ -51,7 +51,7 @@
 
                     matplotlib = super.matplotlib.override (
                       {
-                        enableGtk3 = true;
+                        passthru.enableGtk3 = true;
                       }
                     );
 
