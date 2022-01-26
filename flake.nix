@@ -32,6 +32,14 @@
                       }
                     );
 
+                    qutip = super.fcspline.overridePythonAttrs (
+                      old: {
+                        buildInputs = (old.buildInputs or [ ]) ++ [
+                          self.cython
+                        ];
+                      }
+                    );
+
                     stocproc = super.stocproc.overridePythonAttrs (
                       old: {
                         buildInputs = (old.buildInputs or [ ]) ++ [
