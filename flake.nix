@@ -71,6 +71,7 @@
         , addCythonTo ? [ ]
         , noPackage ? false
         , shellOverride ? (_: { })
+        , python ? false
         }:
         (flake-utils.lib.eachDefaultSystem (system:
           let
@@ -82,6 +83,7 @@
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv ({
                     overrides = overrides;
                     preferWheels = true;
+                    python = if python then prev.pkgs.python3 else python;
                     editablePackageSources = {
                       ${name} = poetryArgs.projectDir + "/${name}";
                     };
