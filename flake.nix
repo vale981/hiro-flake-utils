@@ -98,6 +98,7 @@
                   } // poetryArgs));
                 } // (if noPackage then { } else {
                   ${name} = (prev.poetry2nix.mkPoetryApplication ({
+                    python = (python prev.pkgs);
                     preferWheels = true;
                     overrides = overrides;
                   } // poetryArgs));
