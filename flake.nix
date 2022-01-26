@@ -97,7 +97,7 @@
         , addCythonTo ? [ ]
         , noPackage ? false
         , shellOverride ? (_: { })
-        , python ? (pkgs: pkgs.python3)
+        , python ? (pkgs: pkgs.python310)
         }:
         (flake-utils.lib.eachDefaultSystem (system:
           let
