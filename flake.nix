@@ -32,6 +32,14 @@
                       }
                     );
 
+                    progression = super.progression.overridePythonAttrs (
+                      old: {
+                        buildInputs = (old.buildInputs or [ ]) ++ [
+                          self.poetry
+                        ];
+                      }
+                    );
+
                     qutip = super.fcspline.overridePythonAttrs (
                       old: {
                         buildInputs = (old.buildInputs or [ ]) ++ [
