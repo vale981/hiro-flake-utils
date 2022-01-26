@@ -28,11 +28,20 @@
                       old: {
                         buildInputs = (old.buildInputs or [ ]) ++ [
                           self.cython
+                          self.poetry
                         ];
                       }
                     );
 
                     progression = super.progression.overridePythonAttrs (
+                      old: {
+                        buildInputs = (old.buildInputs or [ ]) ++ [
+                          self.poetry
+                        ];
+                      }
+                    );
+
+                    binfootprint = super.binfootprint.overridePythonAttrs (
                       old: {
                         buildInputs = (old.buildInputs or [ ]) ++ [
                           self.poetry
@@ -51,6 +60,7 @@
                     stocproc = super.stocproc.overridePythonAttrs (
                       old: {
                         buildInputs = (old.buildInputs or [ ]) ++ [
+                          self.poetry
                           self.cython
                         ];
                       }
