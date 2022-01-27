@@ -98,16 +98,18 @@
         , noPackage ? false
         , shellOverride ? (_: { })
         , python ? (pkgs: pkgs.python310)
+        , extraOverrides ? (_:_:{})
         }:
         (flake-utils.lib.eachDefaultSystem (system:
           let
+            finalOverrides = nixpkgs.lib.composeManyExtensions [overrides extraOverrides];
             overlay = nixpkgs.lib.composeManyExtensions [
               poetry2nix.overlay
 
               (final: prev:
                 {
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv ({
-                    overrides = overrides;
+                    overrides = finalOverrides;
                     preferWheels = true;
                     python = (python prev.pkgs);
                     editablePackageSources = {
@@ -118,7 +120,7 @@
                   ${name} = (prev.poetry2nix.mkPoetryApplication ({
                     python = (python prev.pkgs);
                     preferWheels = true;
-                    overrides = overrides;
+                    overrides = finalOverrides;
                   } // poetryArgs));
                 }))
             ];
