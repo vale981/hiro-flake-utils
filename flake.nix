@@ -49,7 +49,7 @@
                       }
                     );
 
-                    qutip = super.fcspline.overridePythonAttrs (
+                    qutip = super.qutip.overridePythonAttrs (
                       old: {
                         buildInputs = (old.buildInputs or [ ]) ++ [
                           self.cython
@@ -78,9 +78,14 @@
                     matplotlib = super.matplotlib.override (
                       {
                         enableGtk3 = true;
-#                        preferWheel = false;
+                        #                        preferWheel = false;
                       }
                     );
+
+                    numba = super.numba.override (
+                      {
+                        preferWheel = false;
+                      });
 
                     numpy = super.numpy.override (
                       {
