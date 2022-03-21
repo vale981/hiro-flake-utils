@@ -66,6 +66,22 @@
                       }
                     );
 
+                    hopsflow = super.hopsflow.overridePythonAttrs (
+                      old :{
+                        buildInputs = old.buildInputs or [ ] ++ [
+                          self.poetry
+                        ];
+                      }
+                    );
+
+                    hops = super.hops.overridePythonAttrs (
+                      old :{
+                        buildInputs = old.buildInputs or [ ] ++ [
+                          self.poetry
+                        ];
+                      }
+                    );
+
                     jupyter = super.jupyter-core.overridePythonAttrs (
                       old: {
                         postInstall = ''
