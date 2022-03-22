@@ -66,7 +66,7 @@
                       }
                     );
 
-                    two_qubit_model = super.two_qubit_model.overridePythonAttrs (
+                    two-qubit-model = super.two-qubit-model.overridePythonAttrs (
                       old: {
                         buildInputs = (old.buildInputs or [ ]) ++ [
                           self.poetry
