@@ -66,6 +66,14 @@
                       }
                     );
 
+                    two_qubit_model = super.two_qubit_model.overridePythonAttrs (
+                      old: {
+                        buildInputs = (old.buildInputs or [ ]) ++ [
+                          self.poetry
+                        ];
+                      }
+                    );
+
                     hopsflow = super.hopsflow.overridePythonAttrs (
                       old :{
                         buildInputs = old.buildInputs or [ ] ++ [
