@@ -137,13 +137,14 @@
         , shellOverride ? (_: _: { })
         , python ? (pkgs: pkgs.python310)
         , extraOverrides ? (_:_:{})
+        , extraOverlay ? (_:_:{})
         }:
         (flake-utils.lib.eachDefaultSystem (system:
           let
             finalOverrides = nixpkgs.lib.composeManyExtensions [overrides extraOverrides];
             overlay = nixpkgs.lib.composeManyExtensions [
               poetry2nix.overlay
-
+              extraOverlay
               (final: prev:
                 {
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv ({
