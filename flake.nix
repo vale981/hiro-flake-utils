@@ -134,7 +134,7 @@
         , nixpkgsConfig ? { }
         , addCythonTo ? [ ]
         , noPackage ? false
-        , shellOverride ? (_: { })
+        , shellOverride ? (_: _: { })
         , python ? (pkgs: pkgs.python310)
         , extraOverrides ? (_:_:{})
         }:
