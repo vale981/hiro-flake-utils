@@ -110,6 +110,7 @@
                     matplotlib = super.matplotlib.override (
                       {
                         enableGtk3 = true;
+                        enableTk = true;
                         #                        preferWheel = false;
                       }
                     );
@@ -172,7 +173,7 @@
           rec {
             devShell = (pkgs."${name}Shell".env.overrideAttrs (oldAttrs: {
               buildInputs = (shellPackages pkgs) ++ [ pkgs.poetry ];
-            })).overrideAttrs shellOverride;
+            })).overrideAttrs (shellOverride pkgs);
           } // (if noPackage then { } else rec {
             packages = {
               ${name} = pkgs.${name};
