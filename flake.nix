@@ -149,7 +149,7 @@
                 {
                   "${name}Shell" = (prev.poetry2nix.mkPoetryEnv ({
                     overrides = finalOverrides;
-                    #preferWheels = true;
+                    preferWheels = true;
                     python = (python prev.pkgs);
                     editablePackageSources = {
                       ${name} = poetryArgs.projectDir + "/${name}";
@@ -158,7 +158,7 @@
                 } // (if noPackage then { } else {
                   ${name} = (prev.poetry2nix.mkPoetryApplication ({
                     python = (python prev.pkgs);
-                    #preferWheels = true;
+                    preferWheels = true;
                     overrides = finalOverrides;
                   } // poetryArgs));
                 }))
