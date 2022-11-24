@@ -32,6 +32,14 @@
                       }
                     );
 
+                    sqlitedict = super.sqlitedict.overridePythonAttrs (
+                      old: {
+                        buildInputs = (old.buildInputs or [ ]) ++ [
+                          self.setuptools
+                        ];
+                      }
+                    );
+
                     fcspline = super.fcspline.overridePythonAttrs (
                       old: {
                         buildInputs = (old.buildInputs or [ ]) ++ [
