@@ -24,6 +24,14 @@
           ));
 
       overrides = (self: super: {
+                    beartype = super.beartype.overridePythonAttrs (
+                      old: {
+                        buildInputs = (old.buildInputs or [ ]) ++ [
+                          self.setuptools
+                        ];
+                      }
+                    );
+
                     future = super.future.overridePythonAttrs (
                       old: {
                         buildInputs = (old.buildInputs or [ ]) ++ [
