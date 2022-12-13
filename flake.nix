@@ -24,140 +24,140 @@
           ));
 
       overrides = (self: super: {
-                    beartype = super.beartype.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.setuptools
-                        ];
-                      }
-                    );
+        beartype = super.beartype.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.setuptools
+            ];
+          }
+        );
 
-                    future = super.future.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.setuptools
-                        ];
-                      }
-                    );
+        future = super.future.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.setuptools
+            ];
+          }
+        );
 
-                    sqlitedict = super.sqlitedict.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.setuptools
-                        ];
-                      }
-                    );
+        sqlitedict = super.sqlitedict.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.setuptools
+            ];
+          }
+        );
 
-                    lmfit = super.lmfit.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.setuptools
-                        ];
-                      }
-                    );
+        lmfit = super.lmfit.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.setuptools
+            ];
+          }
+        );
 
-                    fcspline = super.fcspline.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.cython
-                          self.poetry
-                        ];
-                      }
-                    );
+        fcspline = super.fcspline.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.cython
+              self.poetry
+            ];
+          }
+        );
 
-                    progression = super.progression.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.poetry
-                        ];
-                      }
-                    );
+        progression = super.progression.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.poetry
+            ];
+          }
+        );
 
-                    binfootprint = super.binfootprint.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.poetry
-                        ];
-                      }
-                    );
+        binfootprint = super.binfootprint.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.poetry
+            ];
+          }
+        );
 
-                    qutip = super.qutip.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.cython
-                        ];
-                      }
-                    );
+        qutip = super.qutip.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.cython
+            ];
+          }
+        );
 
-                    stocproc = super.stocproc.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.poetry
-                          self.cython
-                        ];
-                      }
-                    );
+        stocproc = super.stocproc.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.poetry
+              self.cython
+            ];
+          }
+        );
 
-                    two-qubit-model = super.two-qubit-model.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.poetry
-                        ];
-                      }
-                    );
+        two-qubit-model = super.two-qubit-model.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.poetry
+            ];
+          }
+        );
 
-                    hiro-models = super.hiro-models.overridePythonAttrs (
-                      old: {
-                        buildInputs = (old.buildInputs or [ ]) ++ [
-                          self.poetry
-                        ];
-                      }
-                    );
+        hiro-models = super.hiro-models.overridePythonAttrs (
+          old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              self.poetry
+            ];
+          }
+        );
 
-                    hopsflow = super.hopsflow.overridePythonAttrs (
-                      old :{
-                        buildInputs = old.buildInputs or [ ] ++ [
-                          self.poetry
-                        ];
-                      }
-                    );
+        hopsflow = super.hopsflow.overridePythonAttrs (
+          old: {
+            buildInputs = old.buildInputs or [ ] ++ [
+              self.poetry
+            ];
+          }
+        );
 
-                    hops = super.hops.overridePythonAttrs (
-                      old :{
-                        buildInputs = old.buildInputs or [ ] ++ [
-                          self.poetry
-                        ];
-                      }
-                    );
+        hops = super.hops.overridePythonAttrs (
+          old: {
+            buildInputs = old.buildInputs or [ ] ++ [
+              self.poetry
+            ];
+          }
+        );
 
-                    jupyter = super.jupyter-core.overridePythonAttrs (
-                      old: {
-                        postInstall = ''
-                          rm $out/lib/python*/site-packages/__pycache__/jupyter.cpython-39.pyc
-                          rm $out/lib/python*/site-packages/jupyter.py
-                        '';
-                      }
-                    );
+        jupyter = super.jupyter-core.overridePythonAttrs (
+          old: {
+            postInstall = ''
+              rm $out/lib/python*/site-packages/__pycache__/jupyter.cpython-39.pyc
+              rm $out/lib/python*/site-packages/jupyter.py
+            '';
+          }
+        );
 
-                    matplotlib = super.matplotlib.override (
-                      {
-                        enableGtk3 = true;
-                        enableTk = true;
-                        #                        preferWheel = false;
-                      }
-                    );
+        matplotlib = super.matplotlib.override (
+          {
+            enableGtk3 = true;
+            enableTk = true;
+            #                        preferWheel = false;
+          }
+        );
 
-                    numba = super.numba.override (
-                      {
-                        preferWheel = false;
-                      });
+        numba = super.numba.override (
+          {
+            preferWheel = false;
+          });
 
-                    numpy = super.numpy.override (
-                      {
-                        blas = super.mkl;
-                      }
-                    );
-                  });
+        numpy = super.numpy.override (
+          {
+            blas = super.mkl;
+          }
+        );
+      });
 
       poetry2nixWrapper = nixpkgs:
         { name
@@ -168,12 +168,12 @@
         , noPackage ? false
         , shellOverride ? (_: _: { })
         , python ? (pkgs: pkgs.python310)
-        , extraOverrides ? (_:_:{})
-        , extraOverlay ? (_:_:{})
+        , extraOverrides ? (_:_: { })
+        , extraOverlay ? (_:_: { })
         }:
         (flake-utils.lib.eachDefaultSystem (system:
           let
-            finalOverrides = nixpkgs.lib.composeManyExtensions [overrides extraOverrides];
+            finalOverrides = nixpkgs.lib.composeManyExtensions [ overrides extraOverrides ];
             overlay = nixpkgs.lib.composeManyExtensions [
               poetry2nix.overlay
               extraOverlay
@@ -210,6 +210,10 @@
           } // (if noPackage then { } else rec {
             packages = {
               ${name} = pkgs.${name};
+              "${name}Docker" = pkgs.dockerTools.buildImage {
+                name = "${name}";
+                contents = pkgs.${name};
+              };
             };
 
             defaultPackage = packages.${name};
