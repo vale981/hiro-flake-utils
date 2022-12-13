@@ -202,17 +202,18 @@
               ];
               config = nixpkgsConfig;
             };
-          in
-          rec {
-            devShell = (pkgs."${name}Shell".env.overrideAttrs (oldAttrs: {
+            shell = (pkgs."${name}Shell".env.overrideAttrs (oldAttrs: {
               buildInputs = (shellPackages pkgs) ++ [ pkgs.poetry ];
             })).overrideAttrs (shellOverride pkgs);
+          in
+          rec {
+            devShell = shell;
           } // (if noPackage then { } else rec {
             packages = {
               ${name} = pkgs.${name};
               "${name}Docker" = pkgs.dockerTools.buildImage {
                 name = "${name}";
-                contents = pkgs.${name};
+                contents = [pkgs.${name} shell];
               };
             };
 
