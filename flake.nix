@@ -213,7 +213,11 @@
               ${name} = pkgs.${name};
               "${name}Docker" = pkgs.dockerTools.buildImage {
                 name = "${name}";
-                buildInputs = [pkgs.${name}];
+                copyToRoot = pkgs.buildEnv {
+                  name = "image-root";
+                  paths = [ pkgs.${name} (shellPackages pkgs) ];
+                  pathsToLink = [ "/bin" ];
+                };
               };
             };
 
