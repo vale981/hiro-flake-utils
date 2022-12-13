@@ -213,7 +213,7 @@
               ${name} = pkgs.${name};
               "${name}Docker" = pkgs.dockerTools.buildImage {
                 name = "${name}";
-                contents = [pkgs.${name}];
+                buildInputs = [pkgs.${name}];
               };
             };
 
